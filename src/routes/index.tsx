@@ -1,14 +1,19 @@
-import { Title } from "@solidjs/meta";
 import { RouteDefinition } from "@solidjs/router";
 import { createResource } from "solid-js";
-import { runThisOnTheServer } from "~/api";
 import { GET } from "@solidjs/start";
+import { runThisOnTheServer } from "~/api";
+
+// async function runThisOnTheServer() {
+//   "use server";
+//   return 'Hello from the server!';
+// }
 
 const getMainRouteData = GET(async () => {
   "use server";
   const res = runThisOnTheServer();
 
-  if (!res) {
+  if (typeof res !== 'string') {
+    console.error('How could this happen?!?');
     throw new Error("How could this happen?!?");
   }
 
